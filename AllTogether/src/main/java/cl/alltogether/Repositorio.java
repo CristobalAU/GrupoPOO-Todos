@@ -54,4 +54,5 @@ public class Repositorio {
     public void guardarUsuarios(){ escribir("usuarios.json",usuarios); }
     public void guardarSolicitudes(){ escribir("solicitudes.json",solicitudes); }
     public void guardarEventos(){ escribir("historial.json",eventos); }
+
 }

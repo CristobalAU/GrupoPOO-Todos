@@ -129,7 +129,7 @@ public class ServicioTest {
     }
 
 
-    // PRUEBAS DE TRANSICIÓN DE ESTADOS (Maquina de estados)
+    // PRUEBAS DE TRANSICIÓN DE ESTADOS  (Maquina de estados)
 
     @Test
     @DisplayName("Flujo completo de estados: Pendiente -> Recibida -> Atendida")
