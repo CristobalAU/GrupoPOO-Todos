@@ -10,19 +10,30 @@ import java.util.*;
 
 public class Repositorio {
     private final Gson gson=new GsonBuilder().setPrettyPrinting().create();
-    private final Path carpeta=Paths.get("data");
+    private final Path carpeta; // <--- 1. Ya no se inicializa aquí
     private final Type usuariosTipo=new TypeToken<ArrayList<Usuario>>(){}.getType();
     private final Type solicitudesTipo=new TypeToken<ArrayList<Solicitud>>(){}.getType();
     private final Type eventosTipo=new TypeToken<ArrayList<Evento>>(){}.getType();
     public final List<Usuario> usuarios;
     public final List<Solicitud> solicitudes;
     public final List<Evento> eventos;
+
+
+    // 2. Este es tu constructor original. Ahora simplemente llama al nuevo constructor.
     public Repositorio() {
+        this(Paths.get("data"));
+    }
+
+    // 3. Este es el NUEVO constructor que usaremos en las pruebas
+    public Repositorio(Path carpeta) {
+        this.carpeta = carpeta;
         try { Files.createDirectories(carpeta); } catch(IOException e) { throw new IllegalStateException(e); }
         usuarios=leer("usuarios.json",usuariosTipo);
         solicitudes=leer("solicitudes.json",solicitudesTipo);
         eventos=leer("historial.json",eventosTipo);
     }
+
+    // ... El resto de tus métodos (leer, escribir, guardarUsuarios, etc.) se quedan EXACTAMENTE IGUAL
     private <T> List<T> leer(String nombre,Type tipo) {
         Path ruta=carpeta.resolve(nombre);
         if (!Files.exists(ruta)) return new ArrayList<>();
@@ -43,4 +54,5 @@ public class Repositorio {
     public void guardarUsuarios(){ escribir("usuarios.json",usuarios); }
     public void guardarSolicitudes(){ escribir("solicitudes.json",solicitudes); }
     public void guardarEventos(){ escribir("historial.json",eventos); }
+
 }
